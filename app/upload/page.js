@@ -25,7 +25,9 @@ export default function Upload() {
       const data = await response.json();
       return data.url;
     };
-  }, [])
+
+    return () => muxUploader.endpoint = null;
+  }, [title, description])
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
