@@ -10,7 +10,7 @@ function Home() {
       <br />
       <Link href="/videos">All videos</Link>
       <br />
-      <Link href="/videos">Single video</Link>
+      <Link href="/videos/yb2L3z3Z4IKQH02HYkf9xPToVYkOC85WA">Single video</Link>
 
       <hr className={styles.hr} />
     </main>
