@@ -1,24 +1,17 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import MuxUploader from '@mux/mux-uploader-react'
 import Link from 'next/link'
 
 export default function Upload() {
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
+  const formRef = useRef()
   const [uploadUrl, setUploadUrl] = useState('')
-
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value)
-  }
-
-  const handleDescriptionChange = (e) => {
-    setDescription(e.target.value)
-  }
 
   const handleCreateUploadUrlSubmit = async (e) => {
     e.preventDefault()
+    const formData = new FormData(formRef.current)
+    const { title, description } = formData
     const response = await fetch('/api/uploads', {
       method: 'POST',
       headers: {
@@ -44,8 +37,6 @@ export default function Upload() {
           <input
             id="title"
             type="text"
-            value={title}
-            onChange={handleTitleChange}
             placeholder="Enter video title"
             style={{
               width: '100%',
@@ -64,8 +55,6 @@ export default function Upload() {
           Description
           <textarea
             id="description"
-            value={description}
-            onChange={handleDescriptionChange}
             placeholder="Enter video description"
             style={{
               width: '100%',
