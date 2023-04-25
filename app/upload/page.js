@@ -1,31 +1,25 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
-import MuxUploader from '@mux/mux-uploader-react'
+import React, { useRef } from 'react'
 import Link from 'next/link'
 
 export default function Upload() {
   const formRef = useRef()
-  const [uploadUrl, setUploadUrl] = useState('')
-
   const handleCreateUploadUrlSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData(formRef.current)
     const { title, description } = formData
-    const response = await fetch('/api/uploads', {
+    await fetch('/api/uploads', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ title, description }),
     })
-
-    const data = await response.json()
-    setUploadUrl(data.url)
   }
 
   return (
-    <>
+    <div style={{ maxWidth: '400px', margin: '0 auto' }}>
       <Link href="/">Home</Link>
       <h1>Video Upload</h1>
       <form onSubmit={handleCreateUploadUrlSubmit}>
@@ -45,7 +39,6 @@ export default function Upload() {
               border: '1px solid #ccc',
               marginBottom: '10px',
             }}
-            disabled={!!uploadUrl}
           />
         </label>
         <label
@@ -63,23 +56,12 @@ export default function Upload() {
               border: '1px solid #ccc',
               marginBottom: '10px',
             }}
-            disabled={!!uploadUrl}
           />
         </label>
-        <button
-          disabled={!!uploadUrl}
-          type="submit"
-          style={{ padding: '10px 20px' }}
-        >
+        <button type="submit" style={{ padding: '10px 20px' }}>
           Create Upload URL
         </button>
       </form>
-      {!!uploadUrl && (
-        <>
-          <hr />
-          <MuxUploader endpoint={uploadUrl} />
-        </>
-      )}
-    </>
+    </div>
   )
 }
