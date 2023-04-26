@@ -1,10 +1,6 @@
 import Link from 'next/link'
 import MuxUploader from '../../_components/MuxUploader'
-
-// Assumes you have your access token set in environment variables:
-// Access Token ID: process.env.MUX_TOKEN_ID
-// Access Token Secret: process.env.MUX_TOKEN_SECRET
-const { Video } = new Mux()
+import { Video } from '../../../server-lib/Mux'
 
 export default async function Upload({ _, searchParams }) {
   const upload = await Video.Uploads.create({
