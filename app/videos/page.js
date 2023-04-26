@@ -1,14 +1,17 @@
 import Link from 'next/link'
 import Mux from '@mux/mux-node'
+import { cache } from 'react'
 
 // Assumes you have your access token set in environment variables:
 // Access Token ID: process.env.MUX_TOKEN_ID
 // Access Token Secret: process.env.MUX_TOKEN_SECRET
 const { Video } = new Mux()
+const getAssets = cache(async () => {
+  return await Video.Assets.list()
+})
 
 export default async function VideosPage() {
-  const assets = await Video.Assets.list()
-
+  const assets = await getAssets()
   const videos = assets.map((asset) => {
     let title = 'Default Title'
     let description = 'Default description'
