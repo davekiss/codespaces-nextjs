@@ -1,35 +1,32 @@
 'use client'
 
 import React, { useRef } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export default function Upload() {
   const formRef = useRef()
-  const handleCreateUploadUrlSubmit = async (e) => {
+  const router = useRouter()
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData(formRef.current)
-    const { title, description } = formData
-    await fetch('/api/uploads', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ title, description }),
-    })
+    const params = new URLSearchParams(formData)
+    router.push(`/upload/upload?${params.toString()}`)
   }
 
   return (
     <div style={{ maxWidth: '400px', margin: '0 auto' }}>
       <Link href="/">Home</Link>
       <h1>Video Upload</h1>
-      <form onSubmit={handleCreateUploadUrlSubmit}>
+      <form onSubmit={handleSubmit}>
         <label
           htmlFor="title"
           style={{ display: 'block', marginBottom: '5px' }}
         >
           Title
           <input
-            id="title"
+            name="title"
             type="text"
             placeholder="Enter video title"
             style={{
@@ -47,7 +44,7 @@ export default function Upload() {
         >
           Description
           <textarea
-            id="description"
+            name="description"
             placeholder="Enter video description"
             style={{
               width: '100%',
