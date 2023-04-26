@@ -1,22 +1,21 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export default function Upload() {
-  const formRef = useRef()
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
   const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const formData = new FormData(formRef.current)
-    const params = new URLSearchParams(formData)
-    router.push(`/upload/upload?${params.toString()}`)
+    router.push(`/upload/upload?title=${title}&description=${description}`)
   }
 
   return (
-    <div style={{ maxWidth: '400px', margin: '0 auto' }}>
+    <>
       <Link href="/">Home</Link>
       <h1>Video Upload</h1>
       <form onSubmit={handleSubmit}>
@@ -29,6 +28,8 @@ export default function Upload() {
             name="title"
             type="text"
             placeholder="Enter video title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             style={{
               width: '100%',
               padding: '8px',
@@ -46,6 +47,8 @@ export default function Upload() {
           <textarea
             name="description"
             placeholder="Enter video description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             style={{
               width: '100%',
               padding: '8px',
@@ -55,10 +58,14 @@ export default function Upload() {
             }}
           />
         </label>
-        <button type="submit" style={{ padding: '10px 20px' }}>
+        <button
+          type="submit"
+          style={{ padding: '10px 20px' }}
+          disabled={!title.trim() || !description.trim()}
+        >
           Create Upload URL
         </button>
       </form>
-    </div>
+    </>
   )
 }
