@@ -1,20 +1,17 @@
 import { Suspense } from 'react'
-import MuxPlayer from '../../_components/MuxPlayer'
+import Link from 'next/link'
 
-import VideoTitle from './VideoTitle'
-import VideoTranscript from './VideoTranscript'
+import MuxPlayer from '../../_components/MuxPlayer'
+import AboutVideo from './AboutVideoForPlaybackId'
 
 const Video = async ({ params }) => {
   const { playbackId } = params
 
   return (
     <>
-      <Suspense fallback={<h1>Loading Title...</h1>}>
-        <VideoTitle playbackId={playbackId} />
-      </Suspense>
-      <Suspense fallback={<p>Loading Transcript...</p>}>
-        <VideoTranscript playbackId={playbackId} />
-      </Suspense>
+      <Link href="/" className="link-home">
+        Home
+      </Link>
       <MuxPlayer
         streamType="on-demand"
         playbackId={playbackId}
@@ -27,6 +24,9 @@ const Video = async ({ params }) => {
           maxWidth: '42rem',
         }}
       />
+      <Suspense fallback={<h3>Loading Video Info...</h3>}>
+        <AboutVideo playbackId={playbackId} />
+      </Suspense>
     </>
   )
 }

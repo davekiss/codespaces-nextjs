@@ -16,7 +16,9 @@ export default function Upload() {
 
   return (
     <>
-      <Link href="/">Home</Link>
+      <Link href="/" className="link-home">
+        Home
+      </Link>
       <h1>Video Upload</h1>
       <form onSubmit={handleSubmit}>
         <label

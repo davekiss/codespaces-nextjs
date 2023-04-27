@@ -1,46 +1,29 @@
 import Link from 'next/link'
-import { Video } from '../../server-lib/Mux.js'
+import { listAssets } from '../../server-lib/Mux.js'
+import AboutVideo from './AboutVideo.js'
 
 export default async function VideosPage() {
-  const assets = await Video.Assets.list()
-
-  const videos = assets.map((asset) => {
-    let title = 'Default Title'
-    let description = 'Default description'
-    const playbackId = asset.playback_ids[0].id
-    if (asset.passthrough) {
-      const passthrough = JSON.parse(asset.passthrough)
-      if (passthrough.title) {
-        title = passthrough.title
-      }
-      if (passthrough.description) {
-        description = passthrough.description
-      }
-    }
-    return {
-      id: asset.id,
-      playbackId,
-      title,
-      description,
-    }
-  })
-
+  const assets = await listAssets()
   return (
     <>
-      <Link href="/">Home</Link>
+      <Link href="/" className="link-home">
+        Home
+      </Link>
       <h1>All Videos</h1>
-      <ul>
-        {videos.map(({ id, title, description, playbackId }) => {
+      <ul className="videos">
+        {assets.map((asset) => {
+          const assetId = asset.id
+          const playbackId = asset.playback_ids[0].id
           return (
-            <li key={id}>
-              <img
-                src={`https://image.mux.com/${playbackId}/thumbnail.jpg?width=640&height=360`}
-                width={160}
-                height={90}
-              />
-              <h3>
-                {title} - {description}
-              </h3>
+            <li key={assetId}>
+              <Link href={`/videos/${playbackId}`}>
+                <img
+                  src={`https://image.mux.com/${playbackId}/thumbnail.jpg?width=640&height=360`}
+                  width={160}
+                  height={90}
+                />
+                <AboutVideo asset={asset} />
+              </Link>
             </li>
           )
         })}

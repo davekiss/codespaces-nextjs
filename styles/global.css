@@ -10,22 +10,31 @@ hr {
   margin: 3em auto;
 }
 
-ul {
-  padding: 20;
-  list-style: none;
+.link-home {
+  display: inline-block;
+  margin-bottom: 10px;
 }
 
-li {
+.videos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.videos li {
+  border-bottom: 1px solid black;
+}
+.videos li:last-child {
+  border-bottom: none;
+}
+.videos li a {
   display: flex;
   align-items: center;
-  margin-bottom: 10;
-  border: 1px solid black;
 }
-
-img {
+.videos h3, .videos p {
+  margin: 0;
+}
+.videos img {
   object-fit: contain;
-}
-
-h3 {
-  margin-left: 10px;
+  margin-right: 10px;
 }

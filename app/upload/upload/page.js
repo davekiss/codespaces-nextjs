@@ -13,7 +13,9 @@ export default async function Upload({ _, searchParams }) {
 
   return (
     <div style={{ maxWidth: '400px', margin: '0 auto' }}>
-      <Link href="/">Home</Link>
+      <Link href="/" className="link-home">
+        Home
+      </Link>
       <h1>Upload a video</h1>
 
       <MuxUploader endpoint={upload.url} />
