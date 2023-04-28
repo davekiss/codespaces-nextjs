@@ -16,26 +16,14 @@ const listAssets = cache(async () => {
 })
 
 const getAssetByPlaybackId = cache(async (playbackId) => {
-  // find asset by playback id from list and return
-  const assets = await listAssets()
-
-  const asset = assets.find((asset) => {
-    asset.playback_ids.some((pid) => {
-      return pid.id === playbackId
-    })
-  })
-
+  const response = await Video.PlaybackIds.get(playbackId)
+  const asset = await getAsset(response.object.id)
   return asset
 })
 
 const getAsset = cache(async (assetId) => {
-  // find asset from list and return
-  const assets = await listAssets()
-  const asset = assets.find((asset) => {
-    return asset.id === assetId
-  })
-
-  return asset
+  const response = await Video.Assets.get(assetId)
+  return response
 })
 
 export { Video, listAssets, getAssetByPlaybackId, getAsset }
