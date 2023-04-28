@@ -11,7 +11,9 @@ export default function Upload() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    router.push(`/upload/upload?title=${title}&description=${description}`)
+    router.push(
+      `/upload/upload?title=${title}&description=${description}&uploaded_at=${Date.now()}`,
+    )
   }
 
   return (
