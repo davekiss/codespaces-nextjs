@@ -38,3 +38,10 @@ hr {
   object-fit: contain;
   margin-right: 10px;
 }
+
+.player-wrapper,
+mux-player {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: flex;
+}
