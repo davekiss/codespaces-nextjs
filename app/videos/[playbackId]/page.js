@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import MuxPlayer from '../../_components/MuxPlayer'
 import AboutVideoForPlaybackId from './AboutVideoForPlaybackId'
+import Comments from './Comments'
 
 const Video = async ({ params }) => {
   const { playbackId } = params
@@ -23,6 +24,7 @@ const Video = async ({ params }) => {
         />
       </div>
       <AboutVideoForPlaybackId playbackId={playbackId} />
+      <Comments playbackId={playbackId} />
     </>
   )
 }
