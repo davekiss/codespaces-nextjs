@@ -13,7 +13,7 @@ async function CommentList({ asset }) {
           <li key={comment.id}>
             <p>{comment.content}</p>
             <p>
-              <i>{comment.updated_at}</i>
+              <i>{(new Date(comment.updated_at)).toLocaleDateString()}</i>
             </p>
           </li>
         )
