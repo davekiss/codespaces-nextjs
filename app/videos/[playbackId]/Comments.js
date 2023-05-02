@@ -1,8 +1,8 @@
 import { Suspense } from 'react'
 
-async function CommentList({ asset }) {
+async function CommentList({ playbackId }) {
   const response = await fetch(
-    `https://reactathon-workshop-functions.vercel.app/api/comments/${asset}`,
+    `https://reactathon-workshop-functions.vercel.app/api/comments/${playbackId}`,
   )
   const data = await response.json()
 
@@ -13,7 +13,7 @@ async function CommentList({ asset }) {
           <li key={comment.id}>
             <p>{comment.content}</p>
             <p>
-              <i>{(new Date(comment.updated_at)).toLocaleDateString()}</i>
+              <i>{new Date(comment.updated_at).toLocaleDateString()}</i>
             </p>
           </li>
         )
@@ -22,12 +22,12 @@ async function CommentList({ asset }) {
   )
 }
 
-function Comments({ asset }) {
+function Comments({ playbackId }) {
   return (
     <div className="comments">
       <h3>Comments</h3>
       <Suspense fallback={<p>Loading comments...</p>}>
-        <CommentList asset={asset} />
+        <CommentList playbackId={playbackId} />
       </Suspense>
     </div>
   )
